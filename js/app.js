@@ -1,6 +1,6 @@
 import { sounds, defaultPresets } from "./soundData.js";
 
-export default class AmbientMixer {
+class AmbientMixer {
   // Initilize dependencies and default state
   constructor() {
     console.log("Initializing state...");
