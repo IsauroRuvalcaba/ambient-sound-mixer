@@ -14,7 +14,9 @@ class AmbientMixer {
 
   init() {
     try {
-      this.soundManager.loadSound("rain", "audio/rain.mp3");
+      // Load all sound files
+      this.loadAllSounds();
+
       this.isInitialized = true;
     } catch (error) {
       console.error("Failed to initialize app: ", error);
