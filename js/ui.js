@@ -16,7 +16,7 @@ export class UI {
     this.soundCardsContainer = document.querySelector(".grid");
     this.masterVolumeSlider = document.getElementById("masterVolume");
     this.masterVolumeValue = document.getElementById("masterVolumeValue");
-    this.playPausedButton = document.getElementById("playPauseall");
+    this.playPausedButton = document.getElementById("playPauseAll");
     this.resetButton = document.getElementById("resetall");
     this.modal = document.getElementById("saveResetModal");
     this.customPresetsContainer = document.getElementById("customPresets");
@@ -119,6 +119,19 @@ export class UI {
       if (slider) {
         slider.value = volume;
       }
+    }
+  }
+
+  // Udate main play/pause button
+  updateMainPlayButton(isPlaying) {
+    const icon = this.playPausedButton.querySelector("i");
+
+    if (isPlaying) {
+      icon.classList.remove("fa-play");
+      icon.classList.add("fa-pause");
+    } else {
+      icon.classList.remove("fa-pause");
+      icon.classList.add("fa-play");
     }
   }
 }
