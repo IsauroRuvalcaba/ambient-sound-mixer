@@ -2,7 +2,7 @@ import { sounds, defaultPresets } from "./soundData.js";
 import { SoundManager } from "./soundManager.js";
 import { UI } from "./ui.js";
 
-// https://youtu.be/e-hGCPaRZYk?t=4046
+// https://youtu.be/e-hGCPaRZYk?t=6615
 
 class AmbientMixer {
   // Initilize dependencies and default state
@@ -69,6 +69,13 @@ class AmbientMixer {
     if (this.ui.playPausedButton) {
       this.ui.playPausedButton.addEventListener("click", () => {
         this.toggleAllSounds();
+      });
+    }
+
+    // Handle reset button
+    if (this.ui.resetButton) {
+      this.ui.resetButton.addEventListener("click", () => {
+        this.resetAll();
       });
     }
   }
@@ -225,6 +232,20 @@ class AmbientMixer {
     // Update the main button and the internal state
     this.soundManager.isPlaying = anySoundsPlaying;
     this.ui.updateMainPlayButton(anySoundsPlaying);
+  }
+
+  // Reset everything to default state
+  resetAll() {
+    // Stop all sounds
+    this.soundManager.stopAll();
+
+    // Reset master volume
+    this.masterVolume = 100;
+
+    // Reset UI
+    this.ui.resetUI();
+
+    console.log("All sounds and settings reset");
   }
 }
 
