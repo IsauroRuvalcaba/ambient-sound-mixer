@@ -18,7 +18,7 @@ export class UI {
     this.masterVolumeValue = document.getElementById("masterVolumeValue");
     this.playPausedButton = document.getElementById("playPauseAll");
     this.resetButton = document.getElementById("resetAll");
-    this.modal = document.getElementById("saveResetModal");
+    this.modal = document.getElementById("savePresetModal");
     this.customPresetsContainer = document.getElementById("customPresets");
     this.timerDisplay = document.getElementById("timerDisplay");
     this.timerSelect = document.getElementById("timerSelect");
@@ -165,5 +165,19 @@ export class UI {
     // Reset master volume to 100%
     this.masterVolumeSlider.value = 100;
     this.masterVolumeValue.textContent = "100%";
+  }
+
+  // Show save preset modal
+  showModal() {
+    this.modal.classList.remove("hidden");
+    this.modal.classList.add("flex");
+    document.getElementById("presetName").focus();
+  }
+
+  // Hide save preset modal
+  hideModal() {
+    this.modal.classList.add("hidden");
+    this.modal.classList.remove("flex");
+    document.getElementById("presetName").value = "";
   }
 }
