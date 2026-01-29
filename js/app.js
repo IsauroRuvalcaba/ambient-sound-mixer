@@ -3,7 +3,7 @@ import { sounds, defaultPresets } from "./soundData.js";
 import { SoundManager } from "./soundManager.js";
 import { UI } from "./ui.js";
 
-// https://youtu.be/e-hGCPaRZYk?t=6615
+// https://youtu.be/e-hGCPaRZYk?t=9685
 
 class AmbientMixer {
   // Initilize dependencies and default state
@@ -26,6 +26,9 @@ class AmbientMixer {
       this.ui.renderSoundCards(sounds);
 
       this.setupEventListeners();
+
+      // Load custom presets in UI
+      this.loadCustomPresetsUI();
 
       // Load all sound files
       this.loadAllSounds();
@@ -387,9 +390,21 @@ class AmbientMixer {
       name,
       this.currentSoundState,
     );
+
+    // Add custom preset button to UI
+    this.ui.addCustomPreset(name, presetId);
+
     this.ui.hideModal();
 
     console.log(`Preset "${name}: saved successfully with ID: ${presetId}`);
+  }
+
+  // Load custom preset buttons in UI
+  loadCustomPresetsUI() {
+    const customPresets = this.presetManager.customPresets;
+    for (const [presetId, preset] of Object.entries(customPresets)) {
+      this.ui.addCustomPreset(preset.name, presetId);
+    }
   }
 }
 
