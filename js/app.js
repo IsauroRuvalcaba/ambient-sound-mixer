@@ -59,6 +59,12 @@ class AmbientMixer {
         const presetKey = e.target.closest(".preset-btn").dataset.preset;
         this.loadPreset(presetKey);
       }
+
+      // Check if a custom preset button was clicked
+      if (e.target.closest(".custom-preset-btn")) {
+        const presetKey = e.target.closest(".custom-preset-btn").dataset.preset;
+        this.loadPreset(presetKey, true);
+      }
     });
 
     // Handle volume slider changes
@@ -170,6 +176,9 @@ class AmbientMixer {
     } else {
       // Sound is on, shut it off
       this.soundManager.pauseSound(soundId);
+
+      // to make sure two presets don't play at same time
+      this.currentSoundState[soundId] = 0;
 
       this.ui.updateSoundPlayButton(soundId, false);
 
@@ -299,6 +308,9 @@ class AmbientMixer {
     // Reset master volume
     this.masterVolume = 100;
 
+    // Reset active preset
+    this.ui.setActivePreset(null);
+
     // Reset sound states
     sounds.forEach((sound) => {
       this.currentSoundState[sound.id] = 0;
@@ -309,9 +321,15 @@ class AmbientMixer {
   }
 
   // Load a preset config
-  loadPreset(presetKey) {
-    //defaultPresets comes from soundData.js
-    const preset = defaultPresets[presetKey];
+  loadPreset(presetKey, custom = false) {
+    let preset;
+
+    if (custom) {
+      preset = this.presetManager.loadPreset(presetKey);
+    } else {
+      //defaultPresets comes from soundData.js
+      preset = defaultPresets[presetKey];
+    }
 
     if (!preset) {
       console.error(`Preset ${presetKey} not found`);
@@ -354,6 +372,11 @@ class AmbientMixer {
     // Update main play button and state
     this.soundManager.isPlaying = true;
     this.ui.updateMainPlayButton(true);
+
+    // Set active preset - to change button color when active
+    if (presetKey) {
+      this.ui.setActivePreset(presetKey);
+    }
   }
 
   // Show save preset modal
