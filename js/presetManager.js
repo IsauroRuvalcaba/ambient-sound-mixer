@@ -50,4 +50,15 @@ export class PresetManager {
       (preset) => preset.name === name,
     );
   }
+
+  // Delete a custom preset
+  deletePreset(presetId) {
+    if (this.customPresets[presetId]) {
+      // delete operator removes a property from an object
+      delete this.customPresets[presetId];
+      this.saveCustomPresets();
+      return true;
+    }
+    return false;
+  }
 }
