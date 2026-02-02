@@ -4,7 +4,6 @@ import { SoundManager } from "./soundManager.js";
 import { Timer } from "./timer.js";
 import { UI } from "./ui.js";
 
-// https://www.youtube.com/watch?v=e-hGCPaRZYk&t=9685s
 
 class AmbientMixer {
   // Initilize dependencies and default state
